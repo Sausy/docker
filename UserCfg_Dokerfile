@@ -1,0 +1,13 @@
+#====== basic setup =====
+#....this includes adding a user called "userdev:ubuntu" which is part of sudo
+RUN apt-get update && \
+    apt upgrade -y && \
+    apt-get install -y git nano curl sudo man wget && \
+    echo "root:ubuntu" | chpasswd && \
+    useradd -ms /bin/bash userdev && \
+    echo "userdev:ubuntu" | chpasswd && \
+    adduser userdev sudo && \
+    echo "userdev ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+  USER userdev
+  WORKDIR /home/userdev
