@@ -1,20 +1,75 @@
 # docker
 custom docker stuff
 
+```
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+sudo chown $USER:docker ~/.docker
 
 sudo apt-get update
 sudo apt-get remove docker docker-engine docker.io
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
 
-sudo apt install qemu qemu-user-static binfmt-support docker.io
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+```
+### x86_x64
+```
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
 
+### arm64
+```
+sudo add-apt-repository \
+   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+
+Install qemu support
+```
+sudo apt install qemu qemu-user-static binfmt-support
+
+```
+
+
+## Log into docker online to acess the hub
 cat pw.txt | sudo docker login --username sausy --password-stdin
 
-sudo groupadd docker
-#sudo usermod -aG docker $USER
-sudo gpasswd -a $USER docker
-sudo chown sausy:docker ~/.docker
+## Build docker
+
+### if experimental enabled
+You could also specifiy the target architecture
+FROM --platform=linux/arm64 ubuntu:18.04
 
 
+## Run docker from differnt architecture
+First you have to run
+```
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+```
+
+example:
+First build base arm img
+```
+cd arm64
+docker build -t rpiarm64ros2:latest .
+```
+then build e.g. the one for meldoic (ros1)
+```
+cd melodic
+docker build -t bionic/arm64:melodic .
+```
+
+
+## buildx (didn't work for me jet)
 to use buildx
 nano ~/.docker/config.json
 
@@ -36,7 +91,7 @@ nano ~/.docker/config.json
 sudo service docker restart
 
 to run on different architecture
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+
 
 if
 docker buildx ls

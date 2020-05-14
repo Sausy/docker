@@ -9,7 +9,7 @@ RUN export CHOOSE_ROS_DISTRO=melodic && \
 
 #==== INSTALL NANO PB ====
 RUN pip3 install conan_package_tools protobuf && \
-    sudo apt install libprotobuf-dev protobuf-compiler
+    sudo apt install libprotobuf-dev protobuf-compiler && \
     git clone https://github.com/nanopb/nanopb.git && \
     cd nanopb && \
     sudo chmod -R +x ../generator/* && \
