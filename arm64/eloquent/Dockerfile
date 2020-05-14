@@ -1,15 +1,15 @@
-FROM rpiarm64ros2:latest
+FROM bionic/arm64:latest
+#INFO cd only affects the current RUN after the RUN cmd ends it will jump back to WorkDIR
 
 RUN export CHOOSE_ROS_DISTRO=eloquent && \
     sudo apt install -y ros-$CHOOSE_ROS_DISTRO-ros-base && \
-    sudo apt install python3-argcomplete python3-colcon-common-extensions && \
+    sudo apt install -y python3-argcomplete python3-colcon-common-extensions && \
     echo "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash" >> ~/.bashrc && \
-    source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash && \
     export CMAKE_PREFIX_PATH=$AMENT_PREFIX_PATH
 
 #==== INSTALL NANO PB ====
 RUN pip3 install conan_package_tools protobuf && \
-    sudo apt install libprotobuf-dev protobuf-compiler
+    sudo apt install -y libprotobuf-dev protobuf-compiler && \
     git clone https://github.com/nanopb/nanopb.git && \
     cd nanopb && \
     sudo chmod -R +x ../generator/* && \

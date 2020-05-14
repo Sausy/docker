@@ -1,0 +1,12 @@
+bionic_ros:
+  container_name: bionic/arm64:melodic
+  volumes:
+    - /home/$USER/Projects:/home/userdev/Projects
+  build:
+    context: ./melodic
+    dockerfile: Dockerfile
+    args:
+      DOCKER_VAR_ROS_DISTRO: melodic
+
+
+      container_name: bionic/arm64:latest

@@ -1,6 +1,7 @@
 # docker
 custom docker stuff
 
+## POST INSTALL
 ```
 sudo groupadd docker
 sudo gpasswd -a $USER docker
@@ -8,7 +9,7 @@ sudo chown $USER:docker ~/.docker
 
 sudo apt-get update
 sudo apt-get remove docker docker-engine docker.io
-sudo apt-get install \
+sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -33,9 +34,14 @@ sudo add-apt-repository \
    stable"
 ```
 
-Install qemu support
+## Instaltion
 ```
-sudo apt install qemu qemu-user-static binfmt-support
+ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+```
+
+### Install qemu support
+```
+sudo apt install -y qemu qemu-user-static binfmt-support
 
 ```
 
@@ -113,4 +119,12 @@ su - $USER
 ## Usefull Comands
 ```
 sudo docker commit d32b2a73140 x64/ros2/dashing:latest
+```
+
+#Docker Compose
+To build multiple targets and also predefine names ... docker-compose.yml could be used therefore a docker-compose.yml file
+has to be created
+
+```
+version: ''
 ```

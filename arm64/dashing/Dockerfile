@@ -1,4 +1,4 @@
-FROM rpiarm64ros2:latest
+FROM bionic/arm64:latest
 
 RUN export CHOOSE_ROS_DISTRO=dashing && \
     sudo apt install -y ros-$CHOOSE_ROS_DISTRO-ros-base && \

@@ -5,24 +5,24 @@ ARG DOCKER_VAR_ROS_DISTRO
 
 RUN export CHOOSE_ROS_DISTRO=$DOCKER_VAR_ROS_DISTRO && \
     sudo apt install -y ros-$CHOOSE_ROS_DISTRO-ros-base && \
-    sudo apt install -y python3-argcomplete python3-colcon-common-extensions ros-$CHOOSE_ROS_DISTRO-moveit && \
+    sudo apt install -y python3-argcomplete python3-colcon-common-extensions && \
     echo "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash" >> ~/.bashrc && \
-    export CMAKE_PREFIX_PATH=$AMENT_PREFIX_PATH
-
-#==== INSTALL NANO PB ====
-RUN pip3 install conan_package_tools protobuf && \
+    export CMAKE_PREFIX_PATH=$AMENT_PREFIX_PATH && \
+#==== INSTALL NANO PB ==== && \
+    pip3 install conan_package_tools protobuf && \
     sudo apt install -y libprotobuf-dev protobuf-compiler && \
-    git clone https://github.com/nanopb/nanopb.git
-
-RUN sudo chmod -R +x nanopb/generator/* && \
+    git clone https://github.com/nanopb/nanopb.git && \
+    sudo chmod -R +x nanopb/generator/* && \
     FILE_NAME=nanopb/generator/protoc && \
-    foo=$(cat akw_test_file.txt | grep python3); if [ "${foo}" == "" ]; sed '/python/,/*/ s/python/NEU/' $FILE_NAME > $FILE_NAME; fi && \
-    cat $FILE_NAME && \
+    cat $FILE_NAME  && \
+    foo=$(cat $FILE_NAME | grep python3); if [ "${foo}" == "" ]; then sed '/python/,/*/ s/python/python3/' $FILE_NAME; else cat $FILE_NAME; fi | cat > "${FILE_NAME}_tmp" && \
+    cat "${FILE_NAME}_tmp" > $FILE_NAME && cat $FILE_NAME | cat && echo "=========" && \
     FILE_NAME=nanopb/generator/nanopb_generator.py && \
-    foo=$(cat akw_test_file.txt | grep python3); if [ "${foo}" == "" ]; sed '/python/,/*/ s/python/NEU/' $FILE_NAME > $FILE_NAME; fi && \
-    cat $FILE_NAME && \
-
-RUN cd nanopb && \
+    cat $FILE_NAME | grep python && \
+    foo=$(cat $FILE_NAME | grep python3); if [ "${foo}" == "" ]; then sed '/python/,/*/ s/python/python3/' $FILE_NAME ; else cat $FILE_NAME; fi | cat > "${FILE_NAME}_tmp" && \
+    cat "${FILE_NAME}_tmp" > $FILE_NAME && cat $FILE_NAME | grep python && \
+    cat $FILE_NAME | grep python && \
+    cd nanopb && \
     mkdir build && \
     cd build && \
     cmake ../. && \
@@ -41,7 +41,6 @@ RUN cd nanopb && \
 # mkdir ~/lib
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/lib
 # scp install/*_msgs/lib/*.so ubuntu@192.168.0.36:~/lib/.
-
 
 
 CMD ["uname -a"]
