@@ -1,0 +1,8 @@
+version: '2'
+services:
+  graphicnodered:
+    image: nodered/node-red:x64
+    build: .
+    ports:
+      - "1880:1880"
+      - "9099:9099"
