@@ -1,0 +1,3 @@
+[submodule "node-red/x64/node-red-contrib-web-babylonjs"]
+	path = node-red/x64/node-red-contrib-web-babylonjs
+	url = https://github.com/Sausy/node-red-contrib-web-babylonjs.git

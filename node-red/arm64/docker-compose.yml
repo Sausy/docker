@@ -4,5 +4,5 @@ services:
     image: nodered/node-red:rpi
     build: .
     ports:
-      - 1880:1880
-      - 9099:9099
+      - "1880:1880"
+      - "9099:9099"

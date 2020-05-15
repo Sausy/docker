@@ -3,6 +3,8 @@ services:
   graphicnodered:
     image: nodered/node-red:x64
     build: .
+    volumes:
+      - /home/$USER/.node-red:/data
     ports:
       - "1880:1880"
       - "9099:9099"

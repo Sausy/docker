@@ -6,12 +6,34 @@ mkdir -p ~/.node-red
 ```
 run it
 ```
-docker run -it -p 1880:1880 --name mynodered -v /home/$USER/.node-red:/data nodered/node-red:1.0.6-12-minimal-arm64v8
+docker run -it -p 1880:1880 -p 9099:9099 --name mynodered -v /home/$USER/.node-red:/data nodered/node-red:1.0.6-12-minimal-arm64v8
 ```
 change it
 ```
 docker exec -it mynodered /bin/bash
 ```
+
+### Silient
+To run it in "silient" exchange "-it" with "-d"
+
+### run depending docker in proper oder
+??? there semes to be some kind of restard policy
+Flag          |	Description
+============================
+no            |	Do not automatically restart the container. (the default)
+on-failure	  | Restart the container if it exits due to an error, which manifests as a non-zero exit code.
+always	      | Always restart the container if it stops. If it is manually stopped, it is restarted only when Docker daemon restarts or the container itself is manually restarted. (See the second bullet listed in restart policy details)
+unless-stopped |	Similar to always, except that when the container is stopped (manually or otherwise), it is not restarted even after Docker daemon restarts.
+
+```
+docker run -it --restart always -p 1880:1880 -p 9099:9099 --name mynodered -v /home/$USER/.node-red:/data nodered/node-red:1.0.6-12-minimal-arm64v8
+```
+
+
+### run on startup
+Entry point should be handeld with a sript
+and to runn it on startup
+
 
 
 ## Install 3D rendering

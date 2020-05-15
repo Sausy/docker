@@ -128,3 +128,29 @@ has to be created
 ```
 version: ''
 ```
+
+
+
+### Important note
+if you use docker compose eg do define the external interface to be accessible to the docker you must run
+```
+cd <PATH TO YOU docker-compose.yml>
+docker-compose up
+```
+which builds everything and runs it
+
+eg.:
+```
+version: '2'
+services:
+  graphicnodered:
+    image: nodered/node-red:rpi
+    build: .
+    ports:
+      - 1880:1880
+      - 9099:9099
+```
+if you don't want to swich into the folder all the time you have to run it like
+```
+docker run -it -p 1880:1880 -p 9099:9099 --name mynodered -v /home/$USER/.node-red:/data nodered/node-red:1.0.6-12-minimal-arm64v8
+```
