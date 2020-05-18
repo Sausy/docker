@@ -1,4 +1,4 @@
 FROM --platform=linux/arm64 ros:melodic-ros-core-stretch
 RUN mkdir /data
 # place here your application's setup specifics
-CMD [ "roscore", ">", "/data/log.txt" ]
+CMD [ "roscore" ]

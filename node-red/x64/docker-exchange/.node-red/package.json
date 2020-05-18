@@ -1,0 +1,10 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-file-upload": "0.0.5",
+        "node-red-contrib-filebrowser": "0.0.26"
+    }
+}
