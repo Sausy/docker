@@ -1,10 +1,6 @@
-graphicnodered_arm64:
-  image: nodered/node-red:arm64
-  build:
-    context: .
-    dockerfile: Dockerfile_arm64
-  volumes:
-    - /home/$USER/.node-red:/data
-  ports:
-    - "1880:1880"
-    - "9099:9099"
+mkdir -p docker-exchange/.node-red
+mkdir -p docker-exchange/controll
+
+git clone https://github.com/sausy/node-red-contrib-web-babylonjs.git
+
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes

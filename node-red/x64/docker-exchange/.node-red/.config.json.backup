@@ -467,16 +467,6 @@
      "module": "node-red-contrib-web-babylonjs",
      "file": "/usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/ground.js"
     },
-    "pivot": {
-     "name": "pivot",
-     "types": [
-      "pivot"
-     ],
-     "enabled": true,
-     "local": false,
-     "module": "node-red-contrib-web-babylonjs",
-     "file": "/usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/pivot.js"
-    },
     "transform": {
      "name": "transform",
      "types": [
@@ -709,7 +699,7 @@
   "node-red-contrib-filebrowser": {
    "name": "node-red-contrib-filebrowser",
    "version": "0.0.26",
-   "local": false,
+   "local": true,
    "nodes": {
     "node-red-filebrowser": {
      "name": "node-red-filebrowser",
@@ -727,7 +717,7 @@
   "node-red-contrib-file-upload": {
    "name": "node-red-contrib-file-upload",
    "version": "0.0.5",
-   "local": false,
+   "local": true,
    "nodes": {
     "file-upload": {
      "name": "file-upload",
