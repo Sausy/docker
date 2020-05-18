@@ -13,6 +13,21 @@ change it
 docker exec -it mynodered /bin/bash
 ```
 
+## start Ros
+to start ros (ps this description is straight forward and asumes nothing needs to be debuged)
+```
+docker create -p 11311:11311 --name myroscore roscore/x64:melodic
+docker start myroscore
+docker stop myroscore
+```
+note: with docker create -d is not necessary anymore
+
+## Docker comunication
+link one docker (roscore) to another (mynodered)
+!!! PS don't use the link command ... its obsolete
+
+
+
 ### Silient
 To run it in "silient" exchange "-it" with "-d"
 

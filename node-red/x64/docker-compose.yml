@@ -1,10 +1,36 @@
-version: '2'
+version: '3'
 services:
   graphicnodered:
     image: nodered/node-red:x64
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - /home/$USER/.node-red:/data
     ports:
       - "1880:1880"
       - "9099:9099"
+  graphicnodered_ros:
+    image: nodered/node-red:arm64
+    build:
+      context: .
+      dockerfile: Dockerfile_arm64
+    volumes:
+      - /home/$USER/.node-red:/data
+    ports:
+      - "1880:1880"
+      - "9099:9099"
+  myroscore:
+    image: roscore/x64:melodic
+    build:
+      context: .
+      dockerfile: Dockerfile-roscore-x64
+    ports:
+      - "11311:11311"
+  myroscore_arm64:
+    image: roscore/arm64:melodic
+    build:
+      context: .
+      dockerfile: Dockerfile-roscore-arm64
+    ports:
+      - "11311:11311"
