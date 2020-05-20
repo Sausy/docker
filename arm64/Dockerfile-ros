@@ -1,4 +1,6 @@
-FROM bionic/arm64:latest
+ARG PLATFORM
+ARG DOCKER_VAR_ROS_DISTRO
+FROM bionic/$PLATFORM:${DOCKER_VAR_ROS_DISTRO}
 #INFO cd only affects the current RUN after the RUN cmd ends it will jump back to WorkDIR
 
 ARG DOCKER_VAR_ROS_DISTRO
@@ -43,4 +45,4 @@ RUN export CHOOSE_ROS_DISTRO=$DOCKER_VAR_ROS_DISTRO && \
 # scp install/*_msgs/lib/*.so ubuntu@192.168.0.36:~/lib/.
 
 
-CMD ["uname -a"]
+CMD [ "tail", "-f" "/dev/null" ]

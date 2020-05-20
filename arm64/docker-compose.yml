@@ -1,14 +1,14 @@
 version: '3'
 services:
   bionic_base:
-    image: bionic/arm64:latest
+    image: bionic/${ARCHITECTUR}:latest
     build: .
   bionic_ros:
-    image: bionic/arm64:melodic
+    image: bionic/${ARCHITECTUR}:${ROSVERSION}
     volumes:
       - /home/$USER/Projects:/home/userdev/Projects
     build:
       context: .
       dockerfile: Dockerfile-ros
       args:
-        DOCKER_VAR_ROS_DISTRO: melodic
+        DOCKER_VAR_ROS_DISTRO: ${ROSVERSION}
