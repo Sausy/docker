@@ -1,6 +1,7 @@
 FROM nodered/node-red:latest
 
-RUN npm i babylonjs && \
+RUN npm i python && \
+    npm i babylonjs && \
     npm install node-red-contrib-web-babylonjs && \
     npm install node-red-dashboard && \
     npm install node-red-contrib-ros

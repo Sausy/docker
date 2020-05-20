@@ -1,8 +1,31 @@
 version: '3'
 services:
   graphicnodered:
-    image: nodered/node-red:rpi
-    build: .
+    image: nodered/node-red:arm64
+    build:
+      context: .
+      dockerfile: Dockerfile-nodered
+    volumes:
+      - ./docker-exchange/.node-red:/data
     ports:
       - "1880:1880"
       - "9099:9099"
+  myroscore:
+    image: roscore/arm64:melodic
+    build:
+      context: .
+      args:
+        ROS_DIST: melodic
+        PLATFORM: arm64
+      dockerfile: Dockerfile-roscore
+    ports:
+      - "11311:11311"
+      - "9090:9090"
+  #myroscore_arm64:
+  #  image: roscore/arm64:melodic
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile-roscore-arm64
+  #  ports:
+  #    - "11311:11311"
+  #    - "9090:9090"

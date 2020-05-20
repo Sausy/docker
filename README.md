@@ -154,3 +154,6 @@ if you don't want to swich into the folder all the time you have to run it like
 ```
 docker run -it -p 1880:1880 -p 9099:9099 --name mynodered -v /home/$USER/.node-red:/data nodered/node-red:1.0.6-12-minimal-arm64v8
 ```
+
+### Error free(): invalid pointer with
+Uninstalling golang-docker-credential-helpers resolved this issue for me.
