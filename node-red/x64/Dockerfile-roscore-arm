@@ -1,0 +1,27 @@
+FROM --platform=linux/arm64 ros:melodic-ros-core-stretch
+
+#COPY ros-entery.sh /src/ros-entery.sh
+
+RUN export CHOOSE_ROS_DISTRO=melodic && \
+    mkdir /data && \
+    apt-get update && \
+    apt-get install -y \
+    ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
+    ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
+    python-twisted \
+    python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
+    python-pip \
+    libffi-dev \
+    python-dev && \
+    pip install twisted pyOpenSSL autobahn tornado pymongo && \
+    /bin/bash -c "source /opt/ros/melodic/setup.bash; rosdep install -y rosbridge_server; " && \
+    mkdir -p /src && \
+    echo "" > /src/ros-entery.sh && \
+    chmod +x /src/ros-entery.sh 
+
+COPY /ros-entery/ros-entery.sh /src/ros-entery.sh
+
+
+#CMD [ "roscore" ]
+#CMD [ "/bin/bash", "-c", "'source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; /src/ros-entery.sh;'" ]
+CMD bash -C '/src/ros-entery.sh';'bash'

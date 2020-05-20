@@ -467,6 +467,16 @@
      "module": "node-red-contrib-web-babylonjs",
      "file": "/usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/ground.js"
     },
+    "pivot": {
+     "name": "pivot",
+     "types": [
+      "pivot"
+     ],
+     "enabled": true,
+     "local": false,
+     "module": "node-red-contrib-web-babylonjs",
+     "file": "/usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/pivot.js"
+    },
     "transform": {
      "name": "transform",
      "types": [

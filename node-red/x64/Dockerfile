@@ -1,6 +1,7 @@
-FROM nodered/node-red:latest
+FROM nodered/node-red:1.0.6-12-minimal-arm64v8
 
-RUN npm i babylonjs && \
+RUN npm i python && \
+    npm i babylonjs && \
     npm install node-red-contrib-web-babylonjs && \
     npm install node-red-dashboard && \
     npm install node-red-contrib-ros
@@ -8,3 +9,4 @@ RUN npm i babylonjs && \
     #ln -s /usr/src/node-red/node_modules/ /data/node_modules
 
 COPY --chown=node-red node-red-contrib-web-babylonjs /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/.
+
