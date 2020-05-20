@@ -24,15 +24,18 @@ services:
     image: roscore/x64:melodic
     build:
       context: .
-      dockerfile: Dockerfile-roscore-x64
+      args:
+        ROS_DIST: melodic
+        PLATFORM: amd64
+      dockerfile: Dockerfile-roscore
     ports:
       - "11311:11311"
       - "9090:9090"
-  myroscore_arm64:
-    image: roscore/arm64:melodic
-    build:
-      context: .
-      dockerfile: Dockerfile-roscore-arm64
-    ports:
-      - "11311:11311"
-      - "9090:9090"
+  #myroscore_arm64:
+  #  image: roscore/arm64:melodic
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile-roscore-arm64
+  #  ports:
+  #    - "11311:11311"
+  #    - "9090:9090"

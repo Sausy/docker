@@ -33,12 +33,13 @@ do
       if [ $state_current == 'false' ]
         then
         echo "kill roscore"
-        docker exec -it myroscore killall roslaunch
+        #docker exec -it myroscore killall roslaunch
+        docker stop myroscore
         else
         docker start myroscore
 
       fi
   fi
 
-	sleep 4
+	sleep 3
 done

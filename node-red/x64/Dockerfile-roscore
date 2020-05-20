@@ -1,0 +1,25 @@
+ARG PLATFORM
+ARG ROS_DIST
+FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
+
+ARG ROS_DIST
+
+COPY ros-entery.sh /src/ros-entery.sh
+
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    mkdir /data && \
+    apt-get update && \
+    apt-get install -y \
+    ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
+    ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
+    python-twisted \
+    python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
+    python-pip && \
+    pip install twisted pyOpenSSL autobahn tornado pymongo && \
+    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
+    chmod +x /src/ros-entery.sh
+
+
+#CMD [ "roscore" ]
+#CMD [ "/bin/bash", "-c", "'source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; /src/ros-entery.sh;'" ]
+CMD bash -C '/src/ros-entery.sh';'bash'
