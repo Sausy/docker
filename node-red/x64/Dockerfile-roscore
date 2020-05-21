@@ -4,7 +4,7 @@ FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
 
 ARG ROS_DIST
 
-COPY ros-entery.sh /src/ros-entery.sh
+COPY entery-files/ros-entery.sh /src/ros-entery.sh
 
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     mkdir /data && \
