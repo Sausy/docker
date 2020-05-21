@@ -4,7 +4,7 @@ FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
 
 ARG ROS_DIST
 
-#COPY ros-entery.sh /src/ros-entery.sh
+COPY entery-files/darkroom-entery.sh /src/entery.sh
 # ps volumen docker-exchange/darkroom:/darkroom" 
 
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
@@ -19,8 +19,8 @@ RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     libffi-dev python-dev && \
     pip install twisted pyOpenSSL autobahn tornado pymongo && \
     /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
-    mkdir -p /src 
-    #chmod +x /src/ros-entery.sh
+    mkdir -p /src && \
+    chmod +x /src/entery.sh
 
 
 #CMD [ "roscore" ]
