@@ -1,0 +1,26 @@
+version: '3'
+services:
+  devshell:
+    image: "bionic/${ARCHITECTUR}:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+         USER_NAME: ${USER_NAME}
+         PLATFORM: ${ARCHITECTUR}
+         DOCKER_VAR_ROS_DISTRO: ${ROSVERSION}
+    volumes:
+      - /home/$USER/Projects:/home/${USER_NAME}/Projects
+  devshell_ros:
+    depends_on:
+      - "devshell"
+    image: "bionic/${ARCHITECTUR}:${ROSVERSION}"
+    volumes:
+      - /home/$USER/Projects:/home/${USER_NAME}/Projects
+    build:
+      context: .
+      dockerfile: Dockerfile-ros
+      args:
+        USER_NAME: ${USER_NAME}
+        PLATFORM: ${ARCHITECTUR}
+        DOCKER_VAR_ROS_DISTRO: ${ROSVERSION}

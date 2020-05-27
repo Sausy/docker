@@ -1,35 +1,41 @@
-FROM --platform=linux/arm64 ubuntu:18.04
+ARG PLATFORM
+FROM --platform=linux/$PLATFORM ubuntu:18.04
 #INFO cd only affects the current RUN after the RUN cmd ends it will jump back to WorkDIR
+ARG PLATFORM
+ARG DOCKER_VAR_ROS_DISTRO
+ARG USER_NAME
 
 #====== basic setup =====
 #....this includes adding a user called "userdev:ubuntu" which is part of sudo
 RUN apt-get update && \
-    apt upgrade -y && \
-    apt-get install -y git nano curl sudo man wget unzip tar gnupg2 lsb-release lsb-core sed libncurses5-dev && \
+    apt-get upgrade -y && \
+    apt-get install -y git nano curl sudo man wget unzip tar gnupg2 lsb-release \
+    lsb-core \ 
+    sed \
+    libncurses5-dev && \
     DEBIAN_FRONTEND=noninteractive apt-get install -qq tzdata && \
     echo "root:ubuntu" | chpasswd && \
-    useradd -ms /bin/bash userdev && \
-    echo "userdev:ubuntu" | chpasswd && \
-    adduser userdev sudo && \
-    echo "userdev ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    useradd -ms /bin/bash $USER_NAME && \
+    echo "$USER_NAME:ubuntu" | chpasswd && \
+    adduser $USER_NAME sudo && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     groupadd gpio && \
-    adduser userdev gpio &&\
+    adduser $USER_NAME gpio &&\
 #====== install dev package ===== && \
 #    pip install --upgrade pip && \
     apt install -y vim lsb-release build-essential autoconf libtool cmake pkg-config && \
     apt install -y python3-dev python3 python3-pip && \
     pip3 install --user --upgrade pip
 
-USER userdev
-WORKDIR /home/userdev
-
+USER $USER_NAME
+WORKDIR /home/$USER_NAME
 
 #====== INSTALL wiringPi ====
 RUN pip3 install wiringpi && \
     pip3 install -U pip setuptools && \
     pip3 install libusb1 enum34 psutil && \
 #====== OpenCV ==== && \
-    sudo apt-get install python3-opencv
+    sudo apt-get install -y python3-opencv && \
     #mkdir ~/opencv_build && cd ~/opencv_build && \
     #git clone https://github.com/opencv/opencv.git && \
     #git clone https://github.com/opencv/opencv_contrib.git && \
@@ -44,9 +50,9 @@ RUN pip3 install wiringpi && \
     #-D BUILD_EXAMPLES=ON .. && \
     #make && \
     #sudo make install && \
-    #cd /home/userdev
+    #cd /home/$USER_NAME
 #====== PRE INSTALL ROS 2 ==== && \
-    sudo apt update && \
+    #sudo apt update && \
     sudo locale-gen en_US en_US.UTF-8 && \
     sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
     export LANG=en_US.UTF-8 && \
