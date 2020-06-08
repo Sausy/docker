@@ -1,16 +1,19 @@
 mkdir -p docker-exchange/.node-red
 mkdir -p docker-exchange/controll
 
-git clone https://github.com/sausy/node-red-contrib-web-babylonjs.git
+#git clone https://github.com/sausy/node-red-contrib-web-babylonjs.git
 
 #docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+echo "======================="
 
-docker rm -f mynodered > /dev/null
-docker rm -f myroscore > /dev/null
-
+#docker rm -f mynodered > /dev/null
+#docker rm -f myroscore > /dev/null
 #docker-compose build
-docker build . -f Dockerfile
-docker build . -f Dockerfile-roscore-arm
+
+echo "======================="
+docker-compose build
+#docker build . -f Dockerfile
+#docker build . -f Dockerfile-roscore-arm
 
 #=== parameterisize it =====
 echo "======================="
