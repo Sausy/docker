@@ -1,5 +1,5 @@
-source /opt/ros/melodic/setup.bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubuntu/lib
+#source /opt/ros/melodic/setup.bash
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/${USER}/lib
 
 #docker rm -f mynodered > /dev/null
 #docker rm -f myroscore > /dev/null
@@ -15,7 +15,7 @@ export ROSVERSION=melodic
 
 #=== parameterisize it =====
 echo "======================="
-echo "build done"
+echo "pre setup done"
 echo "ARCHITECTUR: $ARCHITECTUR"
 echo "ROS-Version: $ROSVERSION"
 echo "........................"
@@ -37,7 +37,7 @@ state_last=NULL
 state_last_int=NULL
 state_last_int2=NULL
 
-killall roboy_lighthouse2
+#killall roboy_lighthouse2
 
 while :
 do
@@ -66,13 +66,16 @@ do
       state_last_int=$state_current_int
       if [ $state_current_int == 'false' ]
         then
-        echo "kill lh2"
+        echo "stop udp to ros bridge"
         #docker exec -it myroscore killall roslaunch
         #docker stop myroscore
         #killall roboy_lighthouse2
         docker stop myinterface
+	echo "...done"
         else
+        echo "starting udp to ros bridge"
         docker start myinterface
+        echo "...done"
         #docker start myroscore 
         #killall roboy_lighthouse2
         # /home/ubuntu/start_udpinterface.sh & 
