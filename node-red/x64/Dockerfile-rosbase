@@ -10,7 +10,8 @@ ARG ROS_DIST
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     mkdir /data && \
     apt-get update 
-RUN apt-get install -y libffi-dev \
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    apt-get install -y libffi-dev \
     libyaml-cpp-dev \
     libalglib-dev \
     python-dev \

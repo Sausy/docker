@@ -7,9 +7,12 @@ ARG ROS_DIST
 #COPY ros-entery.sh /src/ros-entery.sh
 #COPY entery-files/ros-entery.sh /src/ros-entery.sh
 
+RUN mkdir /data && \
+    mkdir /src && \
+    echo "" > /src/ros-entery.sh && \
+    chmod +x /src/ros-entery.sh && \
+    apt-get update 
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
-    mkdir /data && \
-    apt-get update && \
     apt-get install -y \
     ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
     ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
@@ -18,10 +21,7 @@ RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
     python-pip && \
     pip install twisted pyOpenSSL autobahn tornado pymongo && \
-    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
-    mkdir /src && \
-    echo "" > /src/ros-entery.sh && \
-    chmod +x /src/ros-entery.sh
+    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; sudo rosdep init; rosdep update; rosdep install -y rosbridge_server; " 
 
 COPY ./ros-entery.sh /src/ros-entery.sh
 
