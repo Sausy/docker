@@ -7,6 +7,7 @@ git clone https://github.com/Sausy/node-red-contrib-web-babylonjs.git
 
 docker rm -f mynodered > /dev/null
 docker rm -f myroscore > /dev/null
+docker rm -f myinterface > /dev/null
 
 docker-compose build
 
@@ -27,6 +28,7 @@ echo ${CURRETN_PATH}/docker-exchange/.node-red:/data
 #docker create -p 1880:1880 -p 9099:9099 --name mynodered -v ${CURRETN_PATH}/docker-exchange/.node-red:/data -v ${CURRETN_PATH}/docker-exchange/controll:/controll nodered/node-red:1.0.6-12-minimal-arm64v8
 docker create -p 1880:1880 -p 9099:9099 --name mynodered -v ${CURRETN_PATH}/docker-exchange/.node-red:/data -v ${CURRETN_PATH}/docker-exchange/controll:/controll nodered/node-red:${ARCHITECTUR}
 docker create -p 11311:11311 -p 9090:9090 --name myroscore roscore/${ARCHITECTUR}:${ROSVERSION}
+docker create -p 8000:8000 -p 4210:4210 -v ${CURRETN_PATH}/docker-exchange/src:/src -v ${CURRETN_PATH}/docker-exchange/lib:/src/lib -v ${CURRETN_PATH}/docker-exchange/usr/games:/usr/games --name myinterface rosbase/${ARCHITECTUR}:${ROSVERSION}
 
 unset ARCHITECTUR
 unset ROSVERSION

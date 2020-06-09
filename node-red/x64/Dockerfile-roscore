@@ -13,12 +13,13 @@ RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     apt-get install -y \
     ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
     ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
+    python-cffi \
     python-twisted \
     python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
     python-pip && \
     pip install twisted pyOpenSSL autobahn tornado pymongo && \
-    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; "
-RUN mkdir /src && \
+    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
+    mkdir /src && \
     echo "" > /src/ros-entery.sh && \
     chmod +x /src/ros-entery.sh
 
