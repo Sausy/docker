@@ -10,8 +10,12 @@ docker rm -f mynodered > /dev/null
 docker rm -f myroscore > /dev/null
 docker rm -f myinterface > /dev/null
 
-echo "start building images"
-docker-compose build
+read -p "(re)build docker images?" -n 1 -r
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+ echo "start building images"
+ docker-compose build
+fi
 
 export $(cat .env | awk 'NR == 1')
 export $(cat .env | awk 'NR == 2')
