@@ -5,7 +5,7 @@ FROM --platform=linux/arm64 ubuntu:18.04
 #....this includes adding a user called "userdev:ubuntu" which is part of sudo
 RUN apt-get update && \
     apt upgrade -y && \
-    apt-get install -y git nano curl sudo man wget unzip tar gnupg2 lsb-release lsb-core sed libncurses5-dev && \
+    apt-get install -y git nano curl sudo man wget unzip tar gnupg2 lsb-release lsb-core sed && \
     DEBIAN_FRONTEND=noninteractive apt-get install -qq tzdata && \
     echo "root:ubuntu" | chpasswd && \
     useradd -ms /bin/bash userdev && \
@@ -28,23 +28,6 @@ WORKDIR /home/userdev
 RUN pip3 install wiringpi && \
     pip3 install -U pip setuptools && \
     pip3 install libusb1 enum34 psutil && \
-#====== OpenCV ==== && \
-    #sudo apt-get install python3-opencv
-    #mkdir ~/opencv_build && cd ~/opencv_build && \
-    #git clone https://github.com/opencv/opencv.git && \
-    #git clone https://github.com/opencv/opencv_contrib.git && \
-    #cd /home/userdev/opencv_build/opencv && \
-    #mkdir build && cd build && \
-    #cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    #-D CMAKE_INSTALL_PREFIX=/usr/local \
-    #-D INSTALL_C_EXAMPLES=ON \
-    #-D INSTALL_PYTHON_EXAMPLES=ON \
-    #-D OPENCV_GENERATE_PKGCONFIG=ON \
-    #-D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules \
-    #-D BUILD_EXAMPLES=ON .. && \
-    #make && \
-    #sudo make install && \
-    #cd /home/userdev
 #====== PRE INSTALL ROS 2 ==== && \
     sudo apt update && \
     sudo locale-gen en_US en_US.UTF-8 && \
@@ -61,4 +44,4 @@ RUN pip3 install wiringpi && \
     sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 && \
     sudo apt update
 
-CMD [ "tail", "-f" "/dev/null" ]
+CMD ["uname -a"]

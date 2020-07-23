@@ -13,35 +13,20 @@ ARG USER_NAME
 
 #RUN sudo chmod +x /entery.sh
 #RUN CHOOSE_ROS_DISTR=/opt/ros/
-SHELL ["/bin/bash", "-c"]
-
 RUN export CHOOSE_ROS_DISTRO=${DOCKER_VAR_ROS_DISTRO} && \
     #sudo apt install -y ros-$CHOOSE_ROS_DISTRO-ros-base && \
     sudo apt install -y ros-$CHOOSE_ROS_DISTRO-desktop && \
-    sudo apt install -y python-twisted \
-    ros-${CHOOSE_ROS_DISTRO}-robot-localization \
-    ros-${CHOOSE_ROS_DISTRO}-pcl-ros \
-    ros-${CHOOSE_ROS_DISTRO}-gazebo-ros \
-    ros-${CHOOSE_ROS_DISTRO}-angles \
-    ros-${CHOOSE_ROS_DISTRO}-interactive-markers \
-    ros-${CHOOSE_ROS_DISTRO}-tf-conversions \
-    libyaml-cpp-dev \
-    libalglib-dev \
-    python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
-    python-pip \
-    libffi-dev \
-    python-dev && \
     sudo apt install -y python3-argcomplete python3-colcon-common-extensions && \
     echo "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash" >> ~/.bashrc && \
     export CMAKE_PREFIX_PATH=$AMENT_PREFIX_PATH && \
-    pip3 install twisted pyOpenSSL autobahn tornado pymongo && \
 #==== INSTALL NANO PB ==== && \
     pip3 install conan_package_tools protobuf && \
-    pip install conan_package_tools protobuf && \
     sudo apt install -y libprotobuf-dev protobuf-compiler && \
     git clone https://github.com/nanopb/nanopb.git && \
-    sudo chmod -R +x nanopb/generator/* && \
-    FILE_NAME=nanopb/generator/protoc && \
+    sudo chmod -R +x nanopb/generator/* 
+SHELL ["/bin/bash", "-c"]
+RUN echo $(pwd)
+RUN FILE_NAME=nanopb/generator/protoc && \
     cat $FILE_NAME  && \
     echo "=========" && \
     foo=$(cat $FILE_NAME | grep python3); if [ "${foo}" == "" ]; then sed '/python/,/*/ s/python/python3/' $FILE_NAME; else cat $FILE_NAME; fi | cat > "${FILE_NAME}_tmp" && \
@@ -51,16 +36,17 @@ RUN export CHOOSE_ROS_DISTRO=${DOCKER_VAR_ROS_DISTRO} && \
     #| cat && echo "=========" && \
     FILE_NAME=nanopb/generator/nanopb_generator.py && \
     echo "=========" && \
+ll
     cat $FILE_NAME | grep python && \
     foo=$(cat $FILE_NAME | grep python3); if [ "${foo}" == "" ]; then sed '/python/,/*/ s/python/python3/' $FILE_NAME ; else cat $FILE_NAME; fi | cat > "${FILE_NAME}_tmp" && \
     cat "${FILE_NAME}_tmp" > $FILE_NAME && cat $FILE_NAME | grep python && \
-    cat $FILE_NAME | grep python
+    cat $FILE_NAME | grep python 
 #RUN echo "${AMENT_PREFIX_PATH}" && \
 #    echo "${LD_LIBRARY_PATH}" && \
-#    echo /opt/ros/$DOCKER_VAR_ROS_DISTRO/setup.bash && \
+#    echo /opt/ros/$DOCKER_VAR_ROS_DISTRO/setup.bash && \ 
 #    export PYTHON_INCLUDE_DIRS=/usr/include/python2.7 && \
 #    export PYTHON_LIBRARIES=/usr/lib/python2.7/config/libpython2.7.so && \
-#    source /opt/ros/$DOCKER_VAR_ROS_DISTRO/setup.bash
+#    source /opt/ros/$DOCKER_VAR_ROS_DISTRO/setup.bash 
 #RUN export CMAKE_PREFIX_PATH=$AMENT_PREFIX_PATH && \
 #    echo "${CMAKE_PREFIX_PATH}" && \
 #    cd nanopb && \

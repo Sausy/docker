@@ -23,16 +23,16 @@ services:
     ports:
       - "11311:11311"
       - "9090:9090"
-  mydarkroom:
-    image: "darkroom/${ARCHITECTUR}:${ROSVERSION}"
-    build:
-      context: .
-      args:
-        ROS_DIST: ${ROSVERSION}
-        PLATFORM: ${ARCHITECTUR}
-      dockerfile: Dockerfile-darkroom
-    volumes:
-      - ".docker-exchange/darkroom:/darkroom"
+#  mydarkroom:
+#    image: "darkroom/${ARCHITECTUR}:${ROSVERSION}"
+#    build:
+#      context: .
+#      args:
+#        ROS_DIST: ${ROSVERSION}
+#        PLATFORM: ${ARCHITECTUR}
+#      dockerfile: Dockerfile-darkroom
+#    volumes:
+#      - ".docker-exchange/darkroom:/darkroom"
   #myroscore_arm64:
   #  image: roscore/arm64:melodic
   #  build:
