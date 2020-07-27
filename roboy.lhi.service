@@ -1,0 +1,12 @@
+[Unit]
+Description=LighthouseInterface Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=forking
+User=ubuntu
+ExecStart=/bin/sh -c ". /opt/ros/melodic/setup.sh; . /etc/ros/env.sh; /home/ubuntu/roboy_lighthouse2 &"
+
+[Install]
+WantedBy=multi-user.target
