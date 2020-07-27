@@ -1,36 +1,69 @@
 version: '3'
 services:
+  #rosebase:
+  #  image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+  #  build:
+  #    context: .
+  #    args:
+  #      ROS_DIST: ${ROSVERSION}
+  #      PLATFORM: ${ARCHITECTUR}
+  #    dockerfile: Dockerfile-rosbase
+  #rosecore:
+  #  image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
+  #  build:
+  #    context: .
+  #    args:
+  #      ROS_DIST: ${ROSVERSION}
+  #      PLATFORM: ${ARCHITECTUR}
+  #    dockerfile: Dockerfile-roscore
+  #nodeimg:
+  #  image: "nodered/node-red:${ARCHITECTUR}"
+  #  build:
+  #    context: .
+#	context: .
+  #      dockerfile: Dockerfile-nodered
+  #      args:
+  #        PLATFORM: ${ARCHITECTUR}
   mynodered:
     image: "nodered/node-red:${ARCHITECTUR}"
-    build:
-      context: .
-      dockerfile: Dockerfile-nodered
-      args:
-        PLATFORM: ${ARCHITECTUR}
+    container_name: mynodered
     volumes:
-      - ".docker-exchange/.node-red:/data"
+      - "./docker-exchange/.node-red:/data"
+      - "./docker-exchange/controll:/controll"
+    networks:
+      rosnet:
+        ipv4_address: 10.10.1.5
     ports:
       - "1880:1880"
       - "9099:9099"
   myroscore:
-    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
-    build:
-      context: .
-      args:
-        ROS_DIST: ${ROSVERSION}
-        PLATFORM: ${ARCHITECTUR}
-      dockerfile: Dockerfile-roscore
+    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"    
+    container_name: myroscore
+    networks:
+      rosnet:
+        ipv4_address: 10.10.1.3
     ports:
       - "11311:11311"
       - "9090:9090"
   myinterface:
     image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
-    build:
-      context: .
-      args:
-        ROS_DIST: ${ROSVERSION}
-        PLATFORM: ${ARCHITECTUR}
-      dockerfile: Dockerfile-rosbase
+    container_name: myinterface
+    volumes:
+      - "./docker-exchange/src:/src"
+      - "./docker-exchange/lib:/src/lib" 
+      - "./docker-exchange/usr/games:/usr/games"
+      - "./ros-entery/projectinterface:/entry"
+    ports:
+      - "192.168.1.1:4210:4210"
+      - "192.168.1.1:8000:8000/udp"
+    networks:
+      rosnet:
+        ipv4_address: 10.10.1.10
+networks:
+  rosnet:
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
 
 #  graphicnodered:
 #    image: nodered/node-red:x64

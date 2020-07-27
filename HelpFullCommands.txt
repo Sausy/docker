@@ -1,0 +1,12 @@
+# Get default IP 
+ip route show default
+
+DEFAULT_ROUTE=$(ip route show default | awk '/default/ {print $3}')
+
+# To wipe out old shit 
+alias docker_clean_container='docker rmi -f $(docker images --all | awk "/none/ { print $3 }")'
+alias docker_clean_ps='docker rm $(docker ps --filter=status=exited --filter=status=created -q)'
+
+#start interface container 
+docker run -it -p 8000:8000 -p 4210:4210 -v $(pwd)/docker-exchange/src:/src -v $(pwd)/docker-exchange/lib:/src/lib -v $(pwd)/docker-exchange/usr/games:/usr/games -v $(pwd)/ros-entery/projectinterface:/entry --name myinterface rosbase/arm64:melodic /bin/bash
+
