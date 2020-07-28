@@ -1,0 +1,3 @@
+sudo apt install libsystemd-dev build-essential
+sudo apt install libsystemd-daemon-dev libsystemd-journal-dev
+pip install systemd

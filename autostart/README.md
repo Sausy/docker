@@ -57,8 +57,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-Type=forking
-User=ubuntu
+TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/usr/bin/docker exec %n stop
 ExecStartPre=-/usr/bin/docker rm %n
@@ -75,21 +74,3 @@ To ensure a proper startup the container first has to be stoped and removed
 to properly startup.
 (P.S.: =- tells the system to not but the output into the log)
 
-
-
-
-
-
-
-[Unit]
-Description=LighthouseInterface Service
-After=docker.service
-Requires=docker.service
-
-[Service]
-Type=forking
-User=[ubuntu]
-ExecStart=/bin/sh -c "./opt/ros/melodic/setup.sh;./etc/ros/env.sh;roboy_lighthouse2"
-
-[Install]
-WantedBy=multi-user.target
