@@ -57,8 +57,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-Type=forking
-User=ubuntu
+TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/usr/bin/docker exec %n stop
 ExecStartPre=-/usr/bin/docker rm %n
