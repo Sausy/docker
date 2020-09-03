@@ -13,6 +13,17 @@ echo "======================="
 #=== copy ".env" file  =====
 find . -maxdepth 1 -type d -exec cp .env {} \;
 
+#=== If not first build we can rebuild the imgs =====
+#read -p "recreate images" -n 1 -r
+#if [[ ! $REPLY =~ ^[Nn]$ ]]
+#then
+# echo "rebuild"
+# cd UdpRosBridge
+# docker-compose build
+# cd ../.
+#fi
+
+
 #=== Shall we build it =====
 read -p "(re)build docker images?[y/n]" -n 1 -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]
@@ -26,15 +37,10 @@ then
  git clone https://github.com/Sausy/node-red-contrib-web-babylonjs.git
  cd ../nodered
  docker-compose create
+ cd ../.
 fi
 
 
-#=== CREATE Projekt Container =====
-read -p "build Project container? [y/n]" -n 1 -r
-if [[ ! $REPLY =~ ^[Nn]$ ]]
-then
- echo "creating it"
-fi
 
 
 docker update --restart always myroscore

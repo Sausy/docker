@@ -4,4 +4,4 @@ FROM rosbase/$PLATFORM:$ROS_DIST
 
 COPY ./ros-entery.sh ./ros-entery.sh
 
-CMD bash -C 'ls /src/* && ./ros-entery.sh';'bash'
+CMD bash -C './ros-entery.sh';'bash'
