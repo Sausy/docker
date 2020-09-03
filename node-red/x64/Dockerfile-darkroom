@@ -1,0 +1,35 @@
+ARG PLATFORM
+ARG ROS_DIST
+FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
+
+ARG ROS_DIST
+
+COPY entery-files/darkroom-entery.sh /src/entery.sh
+# ps volumen docker-exchange/darkroom:/darkroom"
+
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    mkdir /data && \
+    apt-get update && \
+    apt-get install -y \
+    ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
+    ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
+    ros-${CHOOSE_ROS_DISTRO}-angles \
+    ros-${CHOOSE_ROS_DISTRO}-interactive-markers \
+    ros-${CHOOSE_ROS_DISTRO}-tf-conversions \
+    libyaml-cpp-dev \
+    ros-${CHOOSE_ROS_DISTRO}-robot-localization \
+    ros-${CHOOSE_ROS_DISTRO}-pcl-ros ros-${CHOOSE_ROS_DISTRO}-pcl-msgs \
+    ros-${CHOOSE_ROS_DISTRO}-gazebo-ros \
+    libalglib-dev \
+    ros-${CHOOSE_ROS_DISTRO}-roslint
+    python-twisted \
+    python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
+    python-pip \
+    libffi-dev python-dev && \
+    pip install twisted pyOpenSSL autobahn tornado pymongo && \
+    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
+    mkdir -p /src
+    #chmod +x /src/entery.sh
+
+
+CMD bash -C 'source /src/entery.sh';'bash'

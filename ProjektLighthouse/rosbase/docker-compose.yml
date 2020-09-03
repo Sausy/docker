@@ -1,0 +1,11 @@
+version: '3'
+services:
+  rosebase:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    build:
+      context: .
+      args:
+        ROS_DIST: ${ROSVERSION}
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-rosbase
+

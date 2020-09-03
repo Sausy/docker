@@ -1,0 +1,26 @@
+echo "====[Start build/create docker Stuff] ====="
+
+#=== parameterisize it =====
+echo "======================="
+echo "build done"
+echo "ARCHITECTUR: $ARCHITECTUR"
+echo "ROS-Version: $ROSVERSION"
+echo "........................"
+echo "TIP: to change these vars"
+echo "edit the '.env' file"
+echo "======================="
+
+#=== copy ".env" file  =====
+find . -maxdepth 1 -type d -exec cp .env {} \;
+
+#=== Shall we build it =====
+read -p "(re)build docker images?[y/n]" -n 1 -r
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+ echo "start building images"
+ cd roscore
+ docker-compose create
+ cd ../rosbase
+ docker-compose create
+fi
+
