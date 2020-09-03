@@ -1,0 +1,7 @@
+ARG PLATFORM
+ARG ROS_DIST
+FROM rosbase/$PLATFORM:$ROS_DIST
+
+COPY ./ros-entery.sh ./ros-entery.sh
+
+CMD bash -C './ros-entery.sh';'bash'
