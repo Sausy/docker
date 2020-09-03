@@ -1,6 +1,6 @@
 ARG PLATFORM
 ARG ROSVERSION
-FROM rosbase/${ARCHITECTUR}:${ROSVERSION}"
+FROM rosbase/$PLATFORM:$ROSVERSION
 
 COPY ./ros-entery.sh /src/ros-entery.sh
 

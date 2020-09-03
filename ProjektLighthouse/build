@@ -35,3 +35,8 @@ if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
  echo "creating it"
 fi
+
+
+docker update --restart always myroscore
+docker update --restart always myinterface
+docker update --restart always mynodered
