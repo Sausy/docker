@@ -9,9 +9,8 @@ services:
         PLATFORM: ${ARCHITECTUR}
       dockerfile: Dockerfile-roscore
   myroscore:
-    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"    
+    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
     container_name: myroscore
     ports:
       - "11311:11311"
       - "9090:9090"
-

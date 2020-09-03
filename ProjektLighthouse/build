@@ -22,5 +22,16 @@ then
  docker-compose create
  cd ../rosbase
  docker-compose create
+ cd ../container-exchange
+ git clone https://github.com/Sausy/node-red-contrib-web-babylonjs.git
+ cd ../nodered
+ docker-compose create
 fi
 
+
+#=== CREATE Projekt Container =====
+read -p "build Project container? [y/n]" -n 1 -r
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+ echo "creating it"
+fi
