@@ -6,7 +6,8 @@ RUN npm i python && \
     npm install node-red-contrib-web-babylonjs && \
     npm install node-red-dashboard && \
     npm install node-red-contrib-ros
-RUN mkdir /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs && \
+RUN rm -r /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/* && \
+    #mkdir /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs && \
     chown node-red:node-red /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs
     #chmod +x setup.sh && \
     #ln -s /usr/src/node-red/node_modules/ /data/node_modules

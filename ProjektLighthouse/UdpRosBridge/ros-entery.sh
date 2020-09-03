@@ -4,3 +4,5 @@ export ROS_IP=$(hostname -I|head -n1 | awk '{print $1;'})
 source /opt/ros/melodic/setup.bash
 
 rostopic list
+
+/src/roboy_lighthouse2

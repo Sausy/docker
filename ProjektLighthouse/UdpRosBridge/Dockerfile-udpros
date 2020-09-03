@@ -1,0 +1,7 @@
+ARG PLATFORM
+ARG ROSVERSION
+FROM rosbase/${ARCHITECTUR}:${ROSVERSION}"
+
+COPY ./ros-entery.sh /src/ros-entery.sh
+
+CMD bash -C '/src/ros-entery.sh';'bash'
