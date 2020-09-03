@@ -4,4 +4,6 @@ FROM rosbase/$PLATFORM:$ROS_DIST
 
 COPY ./ros-entery.sh ./ros-entery.sh
 
+RUN apt-get install -y libboost-all-dev
+
 CMD bash -C './ros-entery.sh';'bash'

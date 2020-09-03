@@ -37,6 +37,10 @@ then
  git clone https://github.com/Sausy/node-red-contrib-web-babylonjs.git
  cd ../nodered
  docker-compose create
+ cd ../UdpRosBridge
+ docker-compose create
+ cd ../mytriangulation
+ docker-compose create
  cd ../.
 fi
 
@@ -44,5 +48,6 @@ fi
 
 
 docker update --restart always myroscore
-docker update --restart always myinterface
 docker update --restart always mynodered
+docker update --restart always myinterface
+docker update --restart always mydarkroom
