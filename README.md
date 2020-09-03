@@ -9,6 +9,7 @@ sudo chown $USER:docker ~/.docker
 
 sudo apt-get update
 sudo apt-get remove docker docker-engine docker.io
+sudo apt-get purge docker-ce docker-ce-cli containerd.io
 sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
@@ -36,7 +37,8 @@ sudo add-apt-repository \
 
 ## Instaltion
 ```
- sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 ```
 
 ### Install qemu support
@@ -48,6 +50,10 @@ sudo apt install -y qemu qemu-user-static binfmt-support
 
 ## Log into docker online to acess the hub
 cat pw.txt | sudo docker login --username sausy --password-stdin
+install docker-compose
+```
+sudo apt install -y docker-compose
+```
 
 ## Build docker
 
