@@ -3,18 +3,22 @@ services:
   myinterface:
     image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
     container_name: myinterface
+    hostname: myinterface
     ports:
       - "8002:8002/udp"
       - "8001:8001/udp"
       - "8000:8000/udp"
       - "4210:4210/udp"
-    expose:
-      - "11311"
     environment:
-      - ROS_MASTER_URI=http://${WIFIIP}:11311
+      - ROS_MASTER_URI=http://myroscore:11311
     volumes:
       - "../container-exchange/.node-red:/data"
       - "../container-exchange/src:/custom/src"
       - "../container-exchange/lib:/custom/lib"
       - "../container-exchange/usr/games:/usr/games"
       - "./entry:/entry/."
+
+networks:
+  default:
+    external:
+      name: foonet

@@ -52,7 +52,7 @@ docker rm $(docker ps --filter=status=exited --filter=status=created -q)
 read -p "spinup containers?[y/n]" -n 1 -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
- echo "start building images"
+ echo "docker up -d each images"
  cd roscore
  #docker-compose create
  docker-compose up -d
@@ -64,12 +64,10 @@ then
 
  cd ../UdpRosBridge
  docker-compose up -d
- cd ../mytriangulation
+ cd ../triangulation
  docker-compose up -d
  cd ../.
 fi
-
-
 
 
 docker update --restart always myroscore

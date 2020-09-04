@@ -2,14 +2,18 @@ version: '3'
 services:
   mydarkroom:
     image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    hostname: mydarkroom
     container_name: mydarkroom
-    expose:
-      - "11311"
     environment:
-      - ROS_MASTER_URI=http://${WIFIIP}:11311
+      - ROS_MASTER_URI=http://myroscore:11311
     volumes:
       - "../container-exchange/.node-red:/data"
       - "../container-exchange/src:/custom/src"
       - "../container-exchange/lib:/custom/lib"
       - "../container-exchange/usr/games:/usr/games"
       - "./entry:/entry/."
+
+networks:
+  default:
+    external:
+      name: foonet

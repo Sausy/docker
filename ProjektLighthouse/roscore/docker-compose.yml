@@ -11,6 +11,14 @@ services:
   myroscore:
     image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
     container_name: myroscore
+    hostname: myroscore
     ports:
-      - "11311:11311"
+      - "192.168.0.111:11311:11311"
       - "9090:9090/udp"
+    expose:
+      - "9090"
+
+networks:
+  default:
+    external:
+      name: foonet
