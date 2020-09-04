@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mynodered:
+    image: "nodered/node-red:${ARCHITECTUR}"
+    container_name: mynodered
+    build:
+      context: .
+      args:
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-nodered
+    ports:
+      - "1880:1880"
+      - "9099:9099"

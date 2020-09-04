@@ -1,0 +1,7 @@
+# Known errors
+There seems to be an error with the original stretch img from docker for ros
+because a key is missing
+```
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+```
+only with this key the command **apt-get update** works

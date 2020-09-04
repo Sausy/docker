@@ -7,13 +7,16 @@ ARG ROS_DIST
 #COPY ros-entery.sh /src/ros-entery.sh
 #COPY entery-files/ros-entery.sh /src/ros-entery.sh
 
-RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+RUN echo "deb http://ports.ubuntu.com/ubuntu-ports bionic main" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+    apt-get update && \
+    export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     mkdir /data && \
     apt-get update && \
     apt-get install -y python-pip && \
     mkdir /entry && \
     mkdir /src && \
-    echo "" > entry.sh
+    echo "" > entry.sh && \
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     apt-get install -y libffi-dev \
     libyaml-cpp-dev \
@@ -27,14 +30,14 @@ RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
     ros-${CHOOSE_ROS_DISTRO}-gazebo-ros \
     ros-${CHOOSE_ROS_DISTRO}-angles \
     ros-${CHOOSE_ROS_DISTRO}-interactive-markers \
-    ros-${CHOOSE_ROS_DISTRO}-tf-conversions 
+    ros-${CHOOSE_ROS_DISTRO}-tf-conversions
 RUN apt-get install -y  python-rosdep \
     python-rosinstall \
     python-rosinstall-generator \
     python-wstool \
     libssl-dev libffi-dev \
-    python-autobahn python-cffi python-bson python-twisted
-RUN pip install twisted bson cffi && \
+    python-autobahn python-cffi python-bson python-twisted && \
+    pip install twisted bson cffi && \
     pip install tornado pyOpenSSL && \
     pip install pymongo && \
     pip install autobahn
