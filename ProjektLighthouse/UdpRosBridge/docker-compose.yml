@@ -17,4 +17,4 @@ services:
       - "../container-exchange/src:/custom/src"
       - "../container-exchange/lib:/custom/lib"
       - "../container-exchange/usr/games:/usr/games"
-      - "./entery:/entry/."
+      - "./entry:/entry/."

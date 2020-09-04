@@ -13,6 +13,26 @@ echo "======================="
 #=== copy ".env" file  =====
 find . -maxdepth 1 -type d -exec cp .env {} \;
 
+#=== RPI deployment =====
+echo "Raspberry deployment: if you don't know exactly whats going on press N"
+read -p "press No now" -n 1 -r
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+ then
+ echo "this script just increases deployment speed"
+ echo "but it needs modifications and prebuild images"
+ echo "if you uncertain about it just use ...build..."
+ echo "and get a coffee"
+
+ echo "(change docker hub name to a name where you rosbase can be found)"
+ echo "(usfull cmd docker tag rosbase/arm64:melodic sausy/rosbase:latest)"
+
+ DOCKER_HUB_NAME="sausy/rosbase:latest"
+
+ docker pull $DOCKER_HUB_NAME
+
+ docker tag $DOCKER_HUB_NAME rosbase/arm64:melodic
+fi
+
 #=== If not first build we can rebuild the imgs =====
 #read -p "recreate images" -n 1 -r
 #if [[ ! $REPLY =~ ^[Nn]$ ]]
