@@ -48,6 +48,7 @@ echo " "
 
 docker rm $(docker ps --filter=status=exited --filter=status=created -q)
 
+
 #=== Shall we run it =====
 read -p "spinup containers?[y/n]" -n 1 -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]
