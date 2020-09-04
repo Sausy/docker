@@ -1,7 +1,7 @@
 version: '3'
 services:
   myinterface:
-    image: "rosebase/${ARCHITECTUR}:${ROSVERSION}"
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
     container_name: myinterface
     ports:
       - "8002:8002/udp"
