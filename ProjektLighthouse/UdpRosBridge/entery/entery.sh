@@ -3,8 +3,8 @@
 export ROS_IP=$(hostname -I|head -n1 | awk '{print $1;'})
 source /opt/ros/melodic/setup.bash
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/src/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/custom/lib
 
 rostopic list
 
-/src/roboy_lighthouse2_tracking
+/src/roboy_lighthouse2

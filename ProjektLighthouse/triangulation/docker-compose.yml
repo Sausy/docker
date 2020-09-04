@@ -1,20 +1,15 @@
 version: '3'
 services:
   mydarkroom:
-    image: "mydarkroom/${ARCHITECTUR}:${ROSVERSION}"
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
     container_name: mydarkroom
-    build:
-      context: .
-      args:
-        ROS_DIST: ${ROSVERSION}
-        PLATFORM: ${ARCHITECTUR}
-      dockerfile: Dockerfile-triang
     expose:
       - "11311"
     environment:
       - ROS_MASTER_URI=http://${WIFIIP}:11311
     volumes:
       - "../container-exchange/.node-red:/data"
-      - "../container-exchange/src:/src"
-      - "../container-exchange/lib:/src/lib"
+      - "../container-exchange/src:/custom/src"
+      - "../container-exchange/lib:/custom/lib"
       - "../container-exchange/usr/games:/usr/games"
+      - "./entery:/entry/."

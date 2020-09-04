@@ -12,4 +12,4 @@ RUN echo "deb http://ports.ubuntu.com/ubuntu-ports bionic main" >> /etc/apt/sour
     libyaml-cpp-dev \
     libalglib-dev
 
-CMD bash -C './ros-entery.sh';'bash'
+#CMD bash -C './ros-entery.sh';'bash'
