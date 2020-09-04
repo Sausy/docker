@@ -15,7 +15,7 @@ find . -maxdepth 1 -type d -exec cp .env {} \;
 
 #=== RPI deployment =====
 echo "Raspberry deployment: if you don't know exactly whats going on press N"
-read -p "press No now" -n 1 -r
+read -p "press NO now !?[y/n]" -n 1 -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]
  then
  echo "this script just increases deployment speed"
@@ -43,24 +43,29 @@ fi
 # cd ../.
 #fi
 
+echo " "
 
-#=== Shall we build it =====
-read -p "(re)build docker images?[y/n]" -n 1 -r
+
+docker rm $(docker ps --filter=status=exited --filter=status=created -q)
+
+#=== Shall we run it =====
+read -p "spinup containers?[y/n]" -n 1 -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
  echo "start building images"
  cd roscore
- docker-compose create
- cd ../rosbase
- docker-compose create
+ #docker-compose create
+ docker-compose up -d
+
  cd ../container-exchange
  git clone https://github.com/Sausy/node-red-contrib-web-babylonjs.git
  cd ../nodered
- docker-compose create
+ docker-compose up -d
+
  cd ../UdpRosBridge
- docker-compose create
+ docker-compose up -d
  cd ../mytriangulation
- docker-compose create
+ docker-compose up -d
  cd ../.
 fi
 
