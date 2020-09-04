@@ -7,4 +7,4 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/custom/lib
 
 rostopic list
 
-/src/roboy_lighthouse2_tracking
+/custom/src/roboy_lighthouse2_tracking
