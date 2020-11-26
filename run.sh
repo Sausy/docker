@@ -10,7 +10,10 @@ cd ProjektDefault/rosDevBash/.
 ./start.sh
 
 cd ../../ProjektRosCore/.
-./start.sh
+./start.sh && \
+echo "===[ROS Core startup]==" && \
+echo "... this takes some time please wait" && \
+sleep 30
 
 cd ../ProjektWevRviz/.
 ./run.sh
