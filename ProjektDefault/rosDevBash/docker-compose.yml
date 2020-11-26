@@ -19,3 +19,19 @@ services:
     volumes:
       - "~/Projects/:/home/userdev/Projects"
       - "./entry/entry.sh:/entry/entry.sh"
+  devshell_exohaptic:
+    image: "sausy/devshell:${ARCHITECTUR}"
+    container_name: devshell_exohaptic
+    network_mode: "host"
+    privileged: true
+    devices:
+      - '/dev:/dev'
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311
+    user: "userdev"
+    working_dir: "/home/userdev"
+    volumes:
+      - "~/Projects/:/home/userdev/Projects"
+      - "./entry/entry.sh:/entry/entry.sh"
+      - "~/Projects/lighthouse/cameraSterioCalibration/src/cameraCalibration/Data/robots/.:/usr/games/robots/."
+      - "~/Projects/lighthouse/cameraSterioCalibration/src/cameraCalibration/Data/darkroom/.:/usr/games/darkroom/."
