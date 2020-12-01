@@ -1,0 +1,37 @@
+first install 
+```
+sudo apt install virtualbox
+#for usb2.0 support 
+sudo apt install virtualbox-ext-pack
+```
+```
+#! /bin/bash
+#create and start the machine
+docker-machine create -d virtualbox default
+ 
+#We must stop the machine in order to modify some settings
+docker-machine stop
+ 
+#Enable USB
+vboxmanage modifyvm default --usb on
+ 
+#Enable USB 2.0
+vboxmanage modifyvm default --usbehci on
+ 
+# Go ahead and start the VM back up
+docker-machine start
+ 
+# Official Arduinos and many clones use an FTDI chip.
+# If you're using a clone that doesn't, 
+# or are setting this up for some other purpose
+# run this to find the vendor &amp;amp;amp;amp;amp;amp;amp;amp; product id for your device.
+# vboxmanage list usbhost
+ 
+# Setup a usb filter so your device automatically gets connected to the Virtualbox VM.
+vboxmanage usbfilter add 0 --target default --name ftdi --vendorid 0x028DE --productid 0x0x2101
+ 
+#setup your terminal to use your new docker-machine
+#(you must do this every time you want to use this docker-machine or add it to your bash profile)
+eval $(docker-machine env default)
+
+```
