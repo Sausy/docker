@@ -63,10 +63,10 @@ then
  cd ../nodered
  docker-compose up -d
 
- cd ../UdpRosBridge
- docker-compose up -d
- cd ../triangulation
- docker-compose up -d
+ #cd ../UdpRosBridge
+ #docker-compose up -d
+ #cd ../triangulation
+ #docker-compose up -d
  cd ../.
 fi
 
@@ -74,4 +74,4 @@ fi
 docker update --restart always myroscore
 docker update --restart always mynodered
 docker update --restart always myinterface
-docker update --restart always mydarkroom
+#docker update --restart always mydarkroom
