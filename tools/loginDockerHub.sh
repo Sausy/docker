@@ -6,7 +6,7 @@ read -p "user name: " user
 read -p "pw: " -s pw
 echo " "
 echo $pw > pw.txt
-cat pw.txt | sudo docker login --username $user --password-stdin
+cat pw.txt | docker login --username $user --password-stdin
 
 echo "temp pw file will be removed"
 rm pw.txt
