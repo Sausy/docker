@@ -18,6 +18,11 @@ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credent
 ```
 
 ## How to Work  
+run init.sh to ensure the proper .env file is generated
+```
+./init.sh
+```
+
 in the folder _snippets_ one can find different code snippets to copy into  
 docker-compose or   
 Dockerfile  
