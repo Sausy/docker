@@ -1,0 +1,13 @@
+RUN cd /home/userdev/. && \
+    mkdir opencv && \
+    echo "===========[OPENCV]=============" && \
+    chown userdev:userdev opencv && \
+    cd opencv && \
+    su userdev && \
+    git clone https://github.com/opencv/opencv.git && \
+    git clone https://github.com/opencv/opencv_contrib.git && \
+    mkdir build && cd build && \
+    cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ../opencv && \
+    make -j$(nproc)
+RUN cd /home/userdev/opencv/build && \
+    make install
