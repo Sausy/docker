@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rosebase:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    build:
+      context: .
+      args:
+        ROS_DIST: ${ROSVERSION}
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-rosbase
+  devrosbase:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    container_name: devrosbase
+    volumes:
+      - "../container-exchange/.node-red:/data"
+      - "../container-exchange/src:/custom/src"
+      - "../container-exchange/lib:/custom/lib"
+      - "../container-exchange/usr/games:/usr/games"
+      - "./entry:/entry/."

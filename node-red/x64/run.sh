@@ -1,26 +1,28 @@
-source /opt/ros/melodic/setup.bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubuntu/lib
+#source /opt/ros/melodic/setup.bash
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/${USER}/lib
 
-docker rm -f mynodered > /dev/null
-docker rm -f myroscore > /dev/null
+#docker rm -f mynodered > /dev/null
+#docker rm -f myroscore > /dev/null
+docker stop mynodered
+docker stop myroscore
 
-export $(cat .env | awk 'NR == 1')
-export $(cat .env | awk 'NR == 2')
+#export $(cat .env | awk 'NR == 1')
+#export $(cat .env | awk 'NR == 2')
+
+export ARCHITECTUR=arm64
+export ROSVERSION=melodic
 
 #=== parameterisize it =====
 echo "======================="
-echo "build done"
+echo "pre setup done"
 echo "ARCHITECTUR: $ARCHITECTUR"
 echo "ROS-Version: $ROSVERSION"
 echo "........................"
 echo "TIP: to change these vars"
 echo "edit the '.env' file"
 echo "======================="
-CURRETN_PATH=$(pwd)
-echo ${CURRETN_PATH}/docker-exchange/.node-red:/data
-#docker create -p 1880:1880 -p 9099:9099 --name mynodered -v ${CURRETN_PATH}/docker-exchange/.node-red:/data -v ${CURRETN_PATH}/docker-exchange/controll:/controll nodered/node-red:1.0.6-12-minimal-arm64v8
-docker create -p 1880:1880 -p 9099:9099 --name mynodered -v ${CURRETN_PATH}/docker-exchange/.node-red:/data -v ${CURRETN_PATH}/docker-exchange/controll:/controll nodered/node-red:${ARCHITECTUR}
-docker create -p 11311:11311 -p 9090:9090 --name myroscore roscore/${ARCHITECTUR}:${ROSVERSION}
+#CURRETN_PATH=$(pwd)
+CURRETN_PATH=/home/${USER}//docker/node-red/x64
 
 unset ARCHITECTUR
 unset ROSVERSION
@@ -28,24 +30,54 @@ unset ROSVERSION
 docker start mynodered
 
 state_last=NULL
+state_last_int=NULL
+state_last_int2=NULL
 
 while :
 do
-  state_current=$( cat $CURRETN_PATH/docker-exchange/controll/roscore )
+  state_current=$( cat /home/${USER}/docker/node-red/x64/docker-exchange/controll/roscore )
   if [ $state_last != $state_current ]
     then
       state_last=$state_current
       if [ $state_current == 'false' ]
         then
         echo "kill roscore"
-        #docker exec -it myroscore killall roslaunch
         docker stop myroscore
-	killall roboy_lighthouse2
+        docker stop myinterface
         else
-        docker start myroscore 
-	#& sleep 30 && \
-        #./roboy_lighthouse2
+        docker start myroscore
+      fi
+  fi
 
+  state_current_int=$( cat /home/${USER}/docker/node-red/x64/docker-exchange/controll/tracker )
+  if [ $state_last_int != $state_current_int ]
+    then
+      state_last_int=$state_current_int
+      if [ $state_current_int == 'false' ]
+        then
+        echo "stop udp to ros bridge"
+        docker stop myinterface
+	echo "...done"
+        else
+        echo "starting udp to ros bridge"
+        docker start myinterface
+        echo "...done"
+      fi
+  fi
+
+  state_current_int2=$( cat /home/${USER}/docker/node-red/x64/docker-exchange/controll/processing )
+  if [ $state_last_int2 != $state_current_int2 ]
+    then
+      state_last_int2=$state_current_int2
+      if [ $state_current_int2 == 'false' ]
+        then
+        echo "stoping triangulation process"
+        docker stop mytriangulation
+        echo "...done"
+        else
+	echo "starting triangulation process"
+	docker start mytriangulation
+        echo "...done"
       fi
   fi
 

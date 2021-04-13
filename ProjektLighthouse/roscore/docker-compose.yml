@@ -1,0 +1,17 @@
+version: '3'
+services:
+  rosecore:
+    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
+    build:
+      context: .
+      args:
+        ROS_DIST: ${ROSVERSION}
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-roscore
+  myroscore:
+    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
+    container_name: myroscore
+    hostname: myroscore
+    network_mode: "host"
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311

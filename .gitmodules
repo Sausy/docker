@@ -1,3 +1,13 @@
 [submodule "node-red/x64/node-red-contrib-web-babylonjs"]
 	path = node-red/x64/node-red-contrib-web-babylonjs
 	url = https://github.com/Sausy/node-red-contrib-web-babylonjs.git
+[submodule "docker_ros"]
+	path = docker_ros
+	url = https://github.com/Sausy/docker_ros.git
+	branch = main
+	update = rebase
+[submodule "docker_devshell"]
+	branch = master
+	update = rebase
+	path = docker_devshell
+	url = https://github.com/Sausy/docker_devshell.git

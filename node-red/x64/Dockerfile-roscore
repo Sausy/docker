@@ -4,22 +4,38 @@ FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
 
 ARG ROS_DIST
 
-COPY entery-files/ros-entery.sh /src/ros-entery.sh
+#COPY ros-entery.sh /src/ros-entery.sh
+#COPY entery-files/ros-entery.sh /src/ros-entery.sh
 
+RUN mkdir /data && \
+    mkdir /src && \
+    echo "" > /src/ros-entery.sh && \
+    chmod +x /src/ros-entery.sh && \
+    apt-get update 
 RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
-    mkdir /data && \
-    apt-get update && \
     apt-get install -y \
     ros-${CHOOSE_ROS_DISTRO}-rosbridge-server \
     ros-${CHOOSE_ROS_DISTRO}-tf2-web-republisher \
+    python-cffi \
     python-twisted \
+    libssl-dev \
+    libffi-dev \
     python-rosdep python-rosinstall python-rosinstall-generator python-wstool \
-    python-pip \
-    libffi-dev python-dev && \
-    pip install twisted pyOpenSSL autobahn tornado pymongo && \
-    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
-    chmod +x /src/ros-entery.sh
+    python-pip && \
+    #---- It is important to install bson befor pymongo
+    pip install twisted && \
+    pip install asyncio && \
+    pip install tornado && \
+    pip install pyOpenSSL && \
+    pip install pymongo && \
+    pip install cffi bson && \
+    pip install autobahn && \ 
+    #pip install twisted pyOpenSSL autobahn tornado pymongo && \
+    /bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; sudo rosdep init; rosdep update; rosdep install -y rosbridge_server; " 
 
+COPY ./ros-entery.sh /src/ros-entery.sh
+
+EXPOSE 9090
 
 #CMD [ "roscore" ]
 #CMD [ "/bin/bash", "-c", "'source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; /src/ros-entery.sh;'" ]

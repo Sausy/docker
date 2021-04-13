@@ -1,0 +1,43 @@
+ARG PLATFORM
+ARG ROS_DIST
+FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
+
+ARG ROS_DIST
+
+#COPY ros-entery.sh /src/ros-entery.sh
+#COPY entery-files/ros-entery.sh /src/ros-entery.sh
+
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    mkdir /data && \
+    apt-get update && \
+    apt-get install -y python-pip
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    apt-get install -y libffi-dev \
+    libyaml-cpp-dev \
+    libalglib-dev \
+    python-dev \
+    python-pip \
+    python-twisted \
+    python-cffi \
+    ros-${CHOOSE_ROS_DISTRO}-robot-localization \
+    ros-${CHOOSE_ROS_DISTRO}-pcl-ros \
+    ros-${CHOOSE_ROS_DISTRO}-gazebo-ros \
+    ros-${CHOOSE_ROS_DISTRO}-angles \
+    ros-${CHOOSE_ROS_DISTRO}-interactive-markers \
+    ros-${CHOOSE_ROS_DISTRO}-tf-conversions 
+RUN apt-get install -y  python-rosdep \
+    python-rosinstall \
+    python-rosinstall-generator \
+    python-wstool \
+    python-cffi 
+RUN pip install twisted pyOpenSSL autobahn tornado pymongo && \
+    #/bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
+    mkdir /src 
+#RUN echo "" > rosbase-entery.sh && \
+#    chmod +x rosbase-entery.sh
+
+#COPY ./rosbase-entery.sh rosbase-entery.sh
+
+#CMD [ "roscore" ]
+#CMD [ "/bin/bash", "-c", "'source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; /src/ros-entery.sh;'" ]
+CMD bash -C '/entry/entry.sh';'bash'

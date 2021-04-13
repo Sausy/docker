@@ -10,3 +10,4 @@ RUN npm i python && \
     #ln -s /usr/src/node-red/node_modules/ /data/node_modules
 
 COPY --chown=node-red node-red-contrib-web-babylonjs /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/.
+

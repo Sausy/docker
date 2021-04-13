@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mydarkroom:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    hostname: mydarkroom
+    container_name: mydarkroom
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311
+    network_mode: "host"
+    volumes:
+      - "../container-exchange/.node-red:/data"
+      - "../container-exchange/src:/custom/src"
+      - "../container-exchange/lib:/custom/lib"
+      - "../container-exchange/usr/games:/usr/games"
+      - "./entry:/entry/."

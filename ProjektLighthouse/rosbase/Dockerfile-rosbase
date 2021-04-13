@@ -1,0 +1,53 @@
+ARG PLATFORM
+ARG ROS_DIST
+#FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core-stretch
+FROM --platform=linux/$PLATFORM ros:$ROS_DIST-ros-core
+
+ARG ROS_DIST
+
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    mkdir /data && \
+    apt-get update && \
+    apt-get install -y \
+    python-pip \
+    python-dev && \
+    mkdir /entry && \
+    mkdir /custom && \
+    mkdir /custom/src && \
+    mkdir /custom/lib
+RUN export CHOOSE_ROS_DISTRO=${ROS_DIST} && \
+    apt-get install -y --ignore-missing \
+    libffi-dev \
+    libyaml-cpp-dev \
+    libboost-all-dev \
+    libalglib-dev && \
+    apt-get install -y --ignore-missing \
+    python-twisted \
+    python-cffi && \
+    apt-get install -y --ignore-missing \
+    ros-${CHOOSE_ROS_DISTRO}-robot-localization \
+    ros-${CHOOSE_ROS_DISTRO}-pcl-ros \
+    ros-${CHOOSE_ROS_DISTRO}-gazebo-ros && \
+    apt-get install -y --ignore-missing \
+    ros-${CHOOSE_ROS_DISTRO}-angles \
+    ros-${CHOOSE_ROS_DISTRO}-interactive-markers \
+    ros-${CHOOSE_ROS_DISTRO}-tf-conversions && \
+    apt-get install -y --ignore-missing \
+    python-rosdep \
+    python-rosinstall \
+    python-rosinstall-generator \
+    python-wstool \
+    libssl-dev \
+    libffi-dev && \
+    apt-get install -y --ignore-missing \
+    python-autobahn \
+    python-cffi \
+    python-bson \
+    python-twisted && \
+    pip install twisted bson cffi && \
+    pip install tornado pyOpenSSL && \
+    pip install pymongo && \
+    pip install autobahn
+    #/bin/bash -c "source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash; rosdep install -y rosbridge_server; " && \
+
+CMD bash -C '/entry/entry.sh';'bash'

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  rosebase:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    build:
+      context: .
+      args:
+        ROS_DIST: ${ROSVERSION}
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-rosbase
+  rosecore:
+    image: "roscore/${ARCHITECTUR}:${ROSVERSION}"
+    build:
+      context: .
+      args:
+        ROS_DIST: ${ROSVERSION}
+        PLATFORM: ${ARCHITECTUR}
+      dockerfile: Dockerfile-roscore
+  nodeimg:
+    image: "nodered/node-red:${ARCHITECTUR}"
+    build:
+      context: .
+       dockerfile: Dockerfile-nodered
+       args:
+         PLATFORM: ${ARCHITECTUR}
+

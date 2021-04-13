@@ -1,7 +1,29 @@
 # docker
 custom docker stuff
 
-## POST INSTALL
+To speed up the install process there is an install script in tools
+## Install  
+```
+./tools/install.sh
+./tools/loginDockerHub.sh
+```
+
+If you want to run a docker of a differnt architecture please install 
+```
+sudo apt install -y qemu qemu-user-static binfmt-support
+```
+and spinn up the multiarch container  
+```
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
+```
+
+## How to Work  
+in the folder _snippets_ one can find different code snippets to copy into  
+docker-compose or   
+Dockerfile  
+to quickly setup a new project 
+
+## Manuell install 
 ```
 sudo groupadd docker
 sudo gpasswd -a $USER docker
@@ -49,6 +71,7 @@ sudo apt install -y qemu qemu-user-static binfmt-support
 
 
 ## Log into docker online to acess the hub
+(there is a script in tools for this as well)
 cat pw.txt | sudo docker login --username sausy --password-stdin
 install docker-compose
 ```

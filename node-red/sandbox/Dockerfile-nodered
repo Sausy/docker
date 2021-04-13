@@ -1,0 +1,7 @@
+ARG PLATFORM
+FROM --platform=linux/$PLATFORM nodered/node-red:latest
+
+RUN npm i python
+
+#COPY --chown=node-red node-red-contrib-web-babylonjs /usr/src/node-red/node_modules/node-red-contrib-web-babylonjs/.
+ 

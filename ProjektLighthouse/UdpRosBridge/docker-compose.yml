@@ -1,0 +1,16 @@
+version: '3'
+services:
+  myinterface:
+    image: "rosbase/${ARCHITECTUR}:${ROSVERSION}"
+    container_name: myinterface
+    hostname: myinterface
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311
+    network_mode: "host"
+    volumes:
+      - "../container-exchange/.node-red:/data"
+      - "../container-exchange/controll:/custom/controll"
+      - "../container-exchange/src:/custom/src"
+      - "../container-exchange/lib:/custom/lib"
+      - "../container-exchange/usr/games:/usr/games"
+      - "./entry:/entry/."

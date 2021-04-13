@@ -1,1 +1,9 @@
-docker run -it -v /home/ubuntu/project:/data --name darkroom darkroom/arm64:melodic /bin/bash
+[Unit]
+Description=node-red-custom-service.sh
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/node-red-custom-service.sh
+
+[Install]
+WantedBy=multi-user.target
